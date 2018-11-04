@@ -12,7 +12,7 @@ $replyToken = $json->events[0]->replyToken;
 $message = $json->events[0]->message->text;
 
 // HTTPヘッダを設定
-$channelToken = 'メモした アクセストークン の文字列';
+$channelToken = 'gGhLUGO+CHo8rfo5gc5kaVUD/kOKFS7CiRmosVspCN1nPcldOdgF9N/hVrIcCtKKvfJgr9CBU0l1/3pTwdjELkTWim56+RI1ARflgWLVff/FqNmgbHEN824aRWrDbrdVA9pmBvISWPw3FFegLNu1ggdB04t89/1O/w1cDnyilFU=';
 $headers = [
 	'Authorization: Bearer ' . $channelToken,
 	'Content-Type: application/json; charset=utf-8',
