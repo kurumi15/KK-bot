@@ -18,16 +18,75 @@ $headers = [
 	'Content-Type: application/json; charset=utf-8',
 ];
 
-// POSTデータを設定してJSONにエンコード
-$post = [
-	'replyToken' => $replyToken,
-	'messages' => [
-		[
-			'type' => 'text',
-			'text' => '「' . $message . '」',
+/*---------------- quickReply関数 ------------------*/
+function quickreply() {
+	return $post;
+}
+
+/*------------ Processing of Received Message ------------*/
+if (strcmp($message,'クイックリプライ') === 0)  {
+	$post = [
+		'replyToken' => $replyToken,
+		'messages' => [
+			[
+				'type' => 'text',
+				'text' => '選択してください',
+				'quickReply' =>  [
+				    'items' => [
+				    	[
+				    	'type' => 'action',
+				    	'action' =>  [
+				    		'type' => 'message',
+				    		'label' => '1番',
+				    		'text' => '1番'
+				    		]
+				   		],
+				   		[
+				    	'type' => 'action',
+				    	'action' =>  [
+				    		'type' => 'message',
+				    		'label' =>'2番',
+				    		'text' => '2番'
+				    		]
+				   		],
+				   		[
+				    	'type' => 'action',
+				    	'action' =>  [
+				    		'type' => 'message',
+				    		'label' => '3番',
+				    		'text' => '3番'
+				    		]
+				   		]
+				   	]
+				]
+  			]
 		],
-	],
-];
+	];
+}
+else if (strcmp($message,'1番') === 0) {
+	$post = [
+		'replyToken' => $replyToken,
+		'messages' => [
+			[
+				'type' => 'text',
+				'text' => '1番ですね',
+			],
+		],
+	];
+}
+else {
+	// POSTデータを設定してJSONにエンコード
+	$post = [
+		'replyToken' => $replyToken,
+		'messages' => [
+			[
+				'type' => 'text',
+				'text' => '「' . $message . '」',
+			],
+		],
+	];
+}
+
 $post = json_encode($post);
 
 // HTTPリクエストを設定
@@ -57,7 +116,10 @@ $httpStatus = $info['http_code'];
 
 $responseHeaderSize = $info['header_size'];
 $body = substr($result, $responseHeaderSize);
+/*------------ End Processing of Received Message ------------*/
 
 // 200 だったら OK
 echo $httpStatus . ' ' . $body;
+
+
 ?>
